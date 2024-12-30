@@ -21,19 +21,6 @@ parser.add_argument('user', help="user name")
 args = parser.parse_args()
 
 # connect to Snowflake
-# account = input("Account: ")
-# admin_user = input("Admin User: ")
-# admin_password = getpass.getpass()
-
-# CONNECTION_PARAMETERS = {
-#     "account": account,
-#     "user": admin_user,
-#     "password": admin_password,
-#     "role": "securityadmin",
-#     "database": "snowflake",
-#     "warehouse": "compute_wh"
-# }
-
 session = Session.builder.config("connection_name", "default").create()
 root = Root(session)
 
