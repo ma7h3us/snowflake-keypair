@@ -69,8 +69,6 @@ public_pem = public_pem[public_pem.find('\n')+1:public_pem[:-1].rfind('\n')]
 if user:
     user.rsa_public_key = public_pem
     root.users[args.user].create_or_alter(user)
-    
-    save_file(f'.\\private-keys\\{args.user}.p8',private_pem)
 
 # if user doesn't exist, create user with some details, assign public key and save private key file to disk
 else:
@@ -81,4 +79,4 @@ else:
     new_user.rsa_public_key = public_pem
     root.users.create(new_user)
 
-    save_file(f'.\\private-keys\\{args.user}.p8',private_pem)
+save_file(f'.\\private-keys\\{args.user}.p8',private_pem)
