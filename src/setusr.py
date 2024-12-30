@@ -6,6 +6,8 @@ from snowflake.core import Root
 from snowflake.core.user import User
 from snowflake.snowpark import Session
 import getpass
+from pathlib import Path
+
 
 # functions
 def save_file(filename, content):  
@@ -15,9 +17,7 @@ def save_file(filename, content):
 
 # initialize argparser
 parser = argparse.ArgumentParser()
-
 parser.add_argument('user', help="user name")
-
 args = parser.parse_args()
 
 # connect to Snowflake
@@ -43,6 +43,9 @@ try:
 except:
     user = None
 
+# create private-keys directory
+Path("./private-keys").mkdir(parents=True, exist_ok=True)
+    
 # generate private key
 private_key = rsa.generate_private_key(  
     public_exponent=65537,  
@@ -79,4 +82,8 @@ else:
     new_user.rsa_public_key = public_pem
     root.users.create(new_user)
 
-save_file(f'.\\private-keys\\{args.user}.p8',private_pem)
+# save private key to file
+save_file(f'./private-keys/{args.user}.p8',private_pem)
+
+# close session
+session.close()
