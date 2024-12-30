@@ -21,20 +21,20 @@ parser.add_argument('user', help="user name")
 args = parser.parse_args()
 
 # connect to Snowflake
-account = input("Account: ")
-admin_user = input("Admin User: ")
-admin_password = getpass.getpass()
+# account = input("Account: ")
+# admin_user = input("Admin User: ")
+# admin_password = getpass.getpass()
 
-CONNECTION_PARAMETERS = {
-    "account": account,
-    "user": admin_user,
-    "password": admin_password,
-    "role": "securityadmin",
-    "database": "snowflake",
-    "warehouse": "compute_wh"
-}
+# CONNECTION_PARAMETERS = {
+#     "account": account,
+#     "user": admin_user,
+#     "password": admin_password,
+#     "role": "securityadmin",
+#     "database": "snowflake",
+#     "warehouse": "compute_wh"
+# }
 
-session = Session.builder.configs(CONNECTION_PARAMETERS).create()
+session = Session.builder.config("connection_name", "default").create()
 root = Root(session)
 
 # check if user exists
@@ -75,6 +75,7 @@ if user:
 
 # if user doesn't exist, create user with some details, assign public key and save private key file to disk
 else:
+    print(f"Creating user {args.user}")
     new_user = User(name=args.user)
     new_user.first_name = input("First Name: ")
     new_user.last_name = input("Last Name: ")
