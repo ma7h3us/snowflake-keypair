@@ -5,7 +5,6 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from snowflake.core import Root
 from snowflake.core.user import User
 from snowflake.snowpark import Session
-import getpass
 from pathlib import Path
 
 
