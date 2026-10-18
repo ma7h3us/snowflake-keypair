@@ -21,6 +21,7 @@ args = parser.parse_args()
 
 # connect to Snowflake
 session = Session.builder.config("connection_name", "default").create()
+session.use_role("SECURITYADMIN")
 root = Root(session)
 
 # check if user exists
