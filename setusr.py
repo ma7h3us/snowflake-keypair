@@ -12,15 +12,16 @@ from pathlib import Path
 def save_file(filename, content):  
    f = open(filename, "wb")  
    f.write(content) 
-   f.close() 
+   f.close() \
 
 # initialize argparser
 parser = argparse.ArgumentParser()
 parser.add_argument('user', help="user name")
+parser.add_argument('-c', '--connection', default="useradmin", help="connection name from connections.toml (default: useradmin)")
 args = parser.parse_args()
 
 # connect to Snowflake
-session = Session.builder.config("connection_name", "default").create()
+session = Session.builder.config("connection_name", args.connection).create()
 session.use_role("SECURITYADMIN")
 root = Root(session)
 
